@@ -110,4 +110,8 @@ public class SymmetricCrypt {
         }
      }
     
+    public static void main(String[] args) throws Exception {
+        System.out.println(SymmetricCrypt.perform().setSecretKey("abraKaDabra2018@").encrypt("https://www.sanatandigitizers.com/assets/vittsense/backend"));
+    }
+    
 }

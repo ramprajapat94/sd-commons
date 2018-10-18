@@ -15,7 +15,7 @@ public class SystemUtil {
 
     /**
      * @param command
-     * @return Process
+     * @return Process {call waitFor : returns==0(normal termination),  returns==1(error)}
      */
     public static Process runCommand(String command) {
         Process pp = null;

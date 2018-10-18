@@ -33,12 +33,15 @@ public class MySqlDBUtil {
          if(!f.getParentFile().exists())f.mkdirs();
          String command = " mysqldump -u "+dbParams.getUserName()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" > "+fileName;
          Process p = SystemUtil.runCommand(command);
-         p.waitFor();
-         if(null != p.getErrorStream()){
-             LOGGER.error(TextUtil.streamToText(p.getErrorStream()));
-             return false;
+         int exitCode = p.waitFor();
+         switch(exitCode){
+             case 0 : return true;   //normal termination, everything is fine
+             case 1 :{ //read the error stream
+                 String txt = TextUtil.streamToText(p.getErrorStream());
+                 LOGGER.error(txt);
+                 return !txt.contains("ERROR");
+             }
          }
-         return true;
      } catch (InterruptedException ex) {
          LOGGER.error(ex);
      }
@@ -63,14 +66,17 @@ public class MySqlDBUtil {
              newDBParams.setDbName("information_schema");
              executeUpdate(newDBParams, "CREATE DATABASE "+dbParams.getDbName());
          }
-         String command = "mysql -u "+dbParams.getUserName()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getName()+" < "+fileName;
+         String command = "mysql -u "+dbParams.getUserName()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" < "+fileName;
          Process p = SystemUtil.runCommand(command);
-         p.waitFor();
-         if(null != p.getErrorStream()){
-             LOGGER.error(TextUtil.streamToText(p.getErrorStream()));
-             return false;
+         int exitCode = p.waitFor();
+         switch(exitCode){
+             case 0 : return true;  
+             case 1 :{
+                 String txt = TextUtil.streamToText(p.getErrorStream());
+                 LOGGER.error(txt);
+                 return !txt.contains("ERROR");
+             }
          }
-         return true;
      } catch (InterruptedException ex) {
          LOGGER.error(ex);
      }
