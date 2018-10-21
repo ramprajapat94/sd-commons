@@ -15,6 +15,7 @@ public class Format {
     //public final static DecimalFormat BILL_NUMBER = new DecimalFormat("000000");
     /** INR ##,##,##,##0.00 */
     public final static DecimalFormat MONEY = new DecimalFormat(MoneyUtil.INR_SYMBOL_CODE+" ##,##,##,##0.00"); //df.setMaximumFractionDigits(2);
+    public final static DecimalFormat BALANCE_MONEY = new DecimalFormat(MoneyUtil.INR_SYMBOL_CODE+" ##,##,##,##0.00");
     /** ##,##,##,##0.00 */
     public final static DecimalFormat VALUE = new DecimalFormat("##,##,##,##0.00");
     /** Round of the value */
@@ -39,11 +40,14 @@ public class Format {
     
    static{
        PERCENT.setMultiplier(1);
+       
        MONEY.setCurrency(MoneyUtil.CURRENCY);
-       MONEY.setNegativePrefix("");
-       MONEY.setNegativeSuffix(" Dr");
-       MONEY.setRoundingMode(RoundingMode.HALF_EVEN);
-       MONEY.setPositiveSuffix(" Cr");
+       
+       BALANCE_MONEY.setCurrency(MoneyUtil.CURRENCY);
+       BALANCE_MONEY.setNegativePrefix("");
+       BALANCE_MONEY.setNegativeSuffix(" Dr");
+       BALANCE_MONEY.setRoundingMode(RoundingMode.HALF_EVEN);
+       BALANCE_MONEY.setPositiveSuffix(" Cr");
        //ROUND_OFF.setMaximumFractionDigits(2);
        //ROUND_OFF.setMinimumFractionDigits(2);
    }

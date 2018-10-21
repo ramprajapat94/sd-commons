@@ -19,9 +19,9 @@ public class FileUtil {
     
     private static final Logger LOGGER = LogManager.getLogger(FileUtil.class);
     
-    public final static String HOME_DIRECTORY= System.getProperty("user.home")+"/SanatanDigitizers/";
-    public final static String REPORTS_DIRECTORY_KCL = HOME_DIRECTORY+"KCL/";
-    public final static String REPORTS_DIRECTORY_VITTSENSE = HOME_DIRECTORY+"VittSense/";
+    public final static String HOME_DIRECTORY= System.getProperty("user.home")+File.separator+"SanatanDigitizers";
+    public final static String REPORTS_DIRECTORY_KCL = HOME_DIRECTORY+File.separator+"KCL";
+    public final static String REPORTS_DIRECTORY_VITTSENSE = HOME_DIRECTORY+File.separator+"VittSense";
    
 
     /**
@@ -130,7 +130,8 @@ public class FileUtil {
         
     public static String readTextFile(File f) {
         StringBuilder content = new StringBuilder();;
-        String separator = System.getProperty("line.separator");
+        //String separator = System.getProperty("line.separator");
+        String separator = System.lineSeparator();
         try {
 //            try (FileReader reader = new FileReader(f)) {
 //                char[] chars = new char[(int) f.length()];

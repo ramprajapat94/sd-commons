@@ -68,14 +68,15 @@ public class FileStructure {
         File f = new File(dirPath);
         File[] files = f.listFiles();
 
-        if (files != null)
-        for (File file : files) {
-            count++;
-            if(file.isFile() && file.getName().contains(fileNametoSearch)){
-                return file;
-            }
-            if (file.isDirectory()) {
-                searchFile(file.getAbsolutePath(), fileNametoSearch); 
+        if (files != null){
+            for (File file : files) {
+                count++;
+                if(file.isFile() && file.getName().contains(fileNametoSearch)){
+                    return file;
+                }
+                if (file.isDirectory()) {
+                    searchFile(file.getAbsolutePath(), fileNametoSearch); 
+                }
             }
         }
         return null;

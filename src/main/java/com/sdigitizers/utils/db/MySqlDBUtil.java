@@ -31,7 +31,7 @@ public class MySqlDBUtil {
          if(!fileName.endsWith(".sql"))fileName += ".sql";
          File f = new File(fileName);
          if(!f.getParentFile().exists())f.mkdirs();
-         String command = " mysqldump -u "+dbParams.getUserName()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" > "+fileName;
+         String command = " mysqldump -u "+dbParams.getUsername()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" > "+fileName;
          Process p = SystemUtil.runCommand(command);
          int exitCode = p.waitFor();
          switch(exitCode){
@@ -66,7 +66,7 @@ public class MySqlDBUtil {
              newDBParams.setDbName("information_schema");
              executeUpdate(newDBParams, "CREATE DATABASE "+dbParams.getDbName());
          }
-         String command = "mysql -u "+dbParams.getUserName()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" < "+fileName;
+         String command = "mysql -u "+dbParams.getUsername()+" -p"+dbParams.getPassword()+" -h "+dbParams.getHost()+" "+dbParams.getDbName()+" < "+fileName;
          Process p = SystemUtil.runCommand(command);
          int exitCode = p.waitFor();
          switch(exitCode){
@@ -97,9 +97,9 @@ public class MySqlDBUtil {
     
     public static boolean changeUserPassword(DBParams params,  String newPass) {
         try{ Class.forName("com.mysql.cj.jdbc.Driver");
-        try (Connection a = DriverManager.getConnection(params.getConnectionPath(),params.getUserName(),params.getPassword());
+        try (Connection a = DriverManager.getConnection(params.getConnectionPath(),params.getUsername(),params.getPassword());
                 Statement stmt = a.createStatement()) {
-              stmt.executeUpdate("UPDATE user SET password = PASSWORD('"+newPass+"') WHERE user='"+params.getUserName()+"';");
+              stmt.executeUpdate("UPDATE user SET password = PASSWORD('"+newPass+"') WHERE user='"+params.getUsername()+"';");
               stmt.executeUpdate("FLUSH PRIVILEGES;");
               return true;
         } } catch(ClassNotFoundException | SQLException ex){

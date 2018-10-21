@@ -28,7 +28,7 @@ public class DBCon implements Closeable{
     
     private Connection createConnection(){
         try{ //Class.forName("java.sql.Driver");
-	 Connection con = DriverManager.getConnection(dbParams.getConnectionPath(),dbParams.getUserName(),dbParams.getPassword());
+	 Connection con = DriverManager.getConnection(dbParams.getConnectionPath(),dbParams.getUsername(),dbParams.getPassword());
              LOGGER.info("Connection successfully created");
              return con;
         }catch(SQLException ex){

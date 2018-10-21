@@ -24,7 +24,7 @@ public class DBParams {
     private String host;
     private int port;
     private String dbName;
-    private String userName;
+    private String username;
     private String password;
     
     private Map<String, String> map = new HashMap<>(6);
@@ -44,7 +44,7 @@ public class DBParams {
             this.port = databaseServer.getPort();
         }
         this.dbName = propFile.getProperty(map.getOrDefault("dbName", "dbName"));
-        this.userName = propFile.getProperty(map.getOrDefault("userName", "userName"));
+        this.username = propFile.getProperty(map.getOrDefault("username", "username"));
         this.password = propFile.getProperty(map.getOrDefault("password", "password"));
     }
     
@@ -63,7 +63,7 @@ public class DBParams {
                 this.port = databaseServer.getPort();
             }
             this.dbName = SymmetricCrypt.perform().decrypt(propFile.getProperty(map.getOrDefault("dbName", "dbName")));
-            this.userName = SymmetricCrypt.perform().decrypt(propFile.getProperty(map.getOrDefault("userName", "userName")));
+            this.username = SymmetricCrypt.perform().decrypt(propFile.getProperty(map.getOrDefault("username", "username")));
             this.password = SymmetricCrypt.perform().decrypt(propFile.getProperty(map.getOrDefault("password", "password")));
         }catch(Exception ex){
             LOGGER.error(ex);
@@ -74,12 +74,12 @@ public class DBParams {
         this(propFileName.contains(":")?PropertiesFile.readPropertiesFileExternal(propFileName):PropertiesFile.readPropertiesFileInternal(propFileName), key);
     }
     
-    public DBParams(DBServer databaseServer, String host, String dbName, String userName, String password) {
+    public DBParams(DBServer databaseServer, String host, String dbName, String username, String password) {
         this.databaseServer = databaseServer;
         this.host = host;
         this.port = databaseServer.getPort();
         this.dbName = dbName;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
     }
     
@@ -94,7 +94,7 @@ public class DBParams {
                 + map.getOrDefault("host", "host")+" = "+host+"\n"
                 + map.getOrDefault("port", "port")+" = "+port+"\n"
                 + map.getOrDefault("dbName", "dbName")+" = "+dbName+"\n"
-                + map.getOrDefault("userName", "userName")+" = "+userName+"\n"
+                + map.getOrDefault("username", "username")+" = "+username+"\n"
                 + map.getOrDefault("password", "password")+" = "+password+"\n";
         File f = new File(path);
         FileUtil.writeTextFile(f, data);
@@ -116,7 +116,7 @@ public class DBParams {
                 + map.getOrDefault("host", "host")+" = "+SymmetricCrypt.perform().encrypt(host)+"\n"
                 + map.getOrDefault("port", "port")+" = "+SymmetricCrypt.perform().encrypt(port+"")+"\n"
                 + map.getOrDefault("dbName", "dbName")+" = "+SymmetricCrypt.perform().encrypt(dbName)+"\n"
-                + map.getOrDefault("userName", "userName")+" = "+SymmetricCrypt.perform().encrypt(userName)+"\n"
+                + map.getOrDefault("username", "username")+" = "+SymmetricCrypt.perform().encrypt(username)+"\n"
                 + map.getOrDefault("password", "password")+" = "+SymmetricCrypt.perform().encrypt(password)+"\n";
         File f = new File(path);
         FileUtil.writeTextFile(f, data);
@@ -128,17 +128,17 @@ public class DBParams {
         map.put("host", "host");
         map.put("port", "port");
         map.put("dbName", "dbName");
-        map.put("userName", "userName");
+        map.put("username", "username");
         map.put("password", "password");
     }
     
     /**
      * Override default parameter names<br> e.g.: key denotes the actual parameter name that system understands, value is your name preference<br>
-     *  map.put("databaseServer", "databaseServerNew");
+  map.put("databaseServer", "databaseServerNew");
         map.put("host", "hostNew");
         map.put("port", "portNew");
         map.put("dbName", "dbNameNew");
-        map.put("userName", "userNameNew");
+        map.put("username", "userNameNew");
         map.put("password", "passwordNew");
      * @param map 
      */
@@ -151,7 +151,7 @@ public class DBParams {
         map.replace("host", "imgip_app");
         map.replace("port", "bndrgh");
         map.replace("dbName", "store_app");
-        map.replace("userName", "using_tax");
+        map.replace("username", "using_tax");
         map.replace("password", "power_start");
     }
     
@@ -201,12 +201,12 @@ public class DBParams {
         return this;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public DBParams setUserName(String userName) {
-        this.userName = userName;
+    public DBParams setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -244,12 +244,12 @@ public class DBParams {
     
     @Override
     public String toString() {
-        return "ConnectionName: "+name+",\nConnectionPath: "+getConnectionPath()+",\nUser: "+userName;
+        return "ConnectionName: "+name+",\nConnectionPath: "+getConnectionPath()+",\nUser: "+username;
     }
     
     
     public DBParams copyObject(){
-        DBParams db = new DBParams(databaseServer, host, dbName, userName, password);
+        DBParams db = new DBParams(databaseServer, host, dbName, username, password);
         db.setName(name);
         db.setPort(port);
         return db;
