@@ -7,7 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,7 +48,20 @@ public class FileUtil {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
    
+    public static InputStream toInputStream(File f){
+        InputStream is = null;
+        try {
+            is = new FileInputStream(f);
+        } catch (FileNotFoundException ex) {
+            LOGGER.error("File I/O error : ", ex);
+        }
+        return is;
+    }
+    public static InputStream toInputStream(String filePath){
+        return toInputStream(new File(filePath));
+    }
     
+    ////////////////////
     public static byte[] toBytes(File f){
         try {
 	     try (FileInputStream inputStream = new FileInputStream(f)) {

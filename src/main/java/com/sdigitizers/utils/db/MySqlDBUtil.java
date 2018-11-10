@@ -6,6 +6,7 @@ import com.sdigitizers.utils.util.TextUtil;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -141,5 +142,42 @@ public class MySqlDBUtil {
     return 0;
 }
  
+ /**
+  * @since 23-10-2018 By Dhirendra Kumar Sahani
+  * @param params Db connection parameters
+  * @return MySql version as string
+  */
+ public static String checkMySQLVersion(DBParams params){
+     try(DBCon con = new DBCon(params)){
+         try(PreparedStatement ps = con.get().prepareStatement("SHOW VARIABLES LIKE 'VERSION'")){
+          try(ResultSet rs = ps.executeQuery()){
+              return rs.getString("Value");
+          }
+         }
+     }catch(SQLException ex){
+         LOGGER.error(ex);
+     }
+     return "Not found";
+    }
+ /**
+  * @since 23-10-2018 By Dhirendra Kumar Sahani
+  * @param con Active connection reference
+  * @return MySql version as string
+  */
+ public static String checkMySQLVersion(Connection con){
+     if(null == con){
+         return "Null Connection reference";
+     }
+     try{
+         try(PreparedStatement ps = con.prepareStatement("SHOW VARIABLES LIKE 'VERSION'")){
+          try(ResultSet rs = ps.executeQuery()){
+              return rs.getString("Value");
+          }
+         }
+     }catch(SQLException ex){
+         LOGGER.error(ex);
+     }
+     return "Not found";
+    }
     
 }
