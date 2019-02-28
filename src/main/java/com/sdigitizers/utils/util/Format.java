@@ -52,4 +52,9 @@ public class Format {
        //ROUND_OFF.setMinimumFractionDigits(2);
    }
    
+   public static String phone(String countryCode, long phone){
+       String no = String.valueOf(phone);
+       return countryCode+"-"+no.substring(0, 4)+"-"+no.substring(4,7)+"-"+no.substring(7);
+   }
+   
 }

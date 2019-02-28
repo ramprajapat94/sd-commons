@@ -33,9 +33,8 @@ public class GSTINValidator {
 	 * 
 	 * @param gstin
 	 * @return boolean - valid or not
-	 * @throws Exception
 	 */
-	public static boolean isValidGSTIN(String gstin) throws Exception {
+	public static boolean isValidGSTIN(String gstin) {
 		boolean isValidFormat = false;
 		if (checkPattern(gstin, GSTINFORMAT_REGEX)) {
 			isValidFormat = verifyCheckDigit(gstin);
@@ -51,7 +50,7 @@ public class GSTINValidator {
 	 * @return
 	 * @throws Exception
 	 */
-	private static boolean verifyCheckDigit(String gstinWCheckDigit) throws Exception {
+	private static boolean verifyCheckDigit(String gstinWCheckDigit) {
 		Boolean isCDValid = false;
 		String newGstninWCheckDigit = getGSTINWithCheckDigit(
 				gstinWCheckDigit.substring(0, gstinWCheckDigit.length() - 1));
@@ -84,7 +83,7 @@ public class GSTINValidator {
 	 * @return : GSTIN with check digit
 	 * @throws Exception
 	 */
-	private static String getGSTINWithCheckDigit(String gstinWOCheckDigit) throws Exception {
+	private static String getGSTINWithCheckDigit(String gstinWOCheckDigit){
 		int factor = 2;
 		int sum = 0;
 		int checkCodePoint = 0;
@@ -93,7 +92,7 @@ public class GSTINValidator {
 
 		try {
 			if (gstinWOCheckDigit == null) {
-				throw new Exception("GSTIN supplied for checkdigit calculation is null");
+				System.err.println("GSTIN supplied for checkdigit calculation is null");
 			}
 			cpChars = GSTN_CODEPOINT_CHARS.toCharArray();
 			inputChars = gstinWOCheckDigit.trim().toUpperCase().toCharArray();

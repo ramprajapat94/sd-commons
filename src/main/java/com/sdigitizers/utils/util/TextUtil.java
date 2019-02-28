@@ -2,10 +2,14 @@
 package com.sdigitizers.utils.util;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -123,5 +127,39 @@ public class TextUtil {
         return null;
     }
     
+    public static String randomAlphaNumeric(int length) {
+		String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		StringBuilder builder = new StringBuilder();
+		while (length-- != 0) {
+			int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+		}
+		return builder.toString();
+    }
+    
+    public static void printClassContents(String filePath) throws FileNotFoundException, IOException{ 
+           FileReader reader = new FileReader(filePath);
+           BufferedReader br = new BufferedReader(reader);
+           List<String[]> variableWalaLines = new ArrayList<>();
+           List<String> methodWalaLines = new ArrayList<>();
+
+           String line = null;
+           while((line=br.readLine())!= null){
+               if(line.contains("private") && line.endsWith(";")){
+                   variableWalaLines.add(line.split(" "));
+               }
+               if(line.endsWith("{") && !line.contains("class")){
+                   methodWalaLines.add(line);
+               }
+           }
+           System.out.println("--Variables---\n");
+           for(String[] s : variableWalaLines){
+               System.out.println("Datatype: "+s[3]+"       Name: "+s[4]);
+           }
+           System.out.println("\n\n--Methods---\n");
+           for(String s : methodWalaLines){
+               System.out.println(s.substring(0, s.indexOf("{")));
+           }
+    }
     
 }

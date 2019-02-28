@@ -11,6 +11,15 @@ import java.util.regex.Pattern;
 public class Validation {
 
     /**
+     * Verify if the given GSTIN is correct
+     * @param gstin The GST identification Number (GST-IN)
+     * @return true if a valid GSTIN, else false
+     */
+    public static boolean isGSTIN(String gstin){
+        return GSTINValidator.isValidGSTIN(gstin);
+    }
+    
+    /**
      * To validate string against presence of any special character
      * @param s String to be validated/checked
      * @return true - if no special character is present else false
@@ -253,8 +262,30 @@ public class Validation {
      * @return true - if it is a valid URL
      */
     public static boolean isURL(String s) {
+        return (isHttpURL(s) || isFileURL(s));
+    }
+    
+    /**
+     * To validate if the string is a valid HTTP URL
+     * @param s String to be validated/checked
+     * @return true - if it is a valid URL
+     */
+    public static boolean isHttpURL(String s) {
         if (s != null) {
             return (s.startsWith("http://") || s.startsWith("https://")) && s.contains(".");
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * To validate if the string is a valid FILE URL
+     * @param s String to be validated/checked
+     * @return true - if it is a valid URL
+     */
+    public static boolean isFileURL(String s) {
+        if (s != null) {
+            return (s.startsWith("file:///") && s.contains(":"));
         } else {
             return false;
         }

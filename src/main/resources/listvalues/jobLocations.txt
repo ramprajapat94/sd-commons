@@ -1,5 +1,0 @@
-Location1,
-Location2,
-Location3,
-Other,
-N/A

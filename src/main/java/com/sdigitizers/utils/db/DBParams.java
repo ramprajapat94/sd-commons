@@ -220,11 +220,11 @@ public class DBParams {
     }
     
     /**
-     * @return Get connection path (for e.g. mysql-> jdbc:mysql//host:port/database)
+     * @return Get connection path (for e.g. mysql-> jdbc:mysql//host:port/database?autoReconnect=true)
      */
     public String getConnectionPath(){
         switch(databaseServer){
-            case MY_SQL : return "jdbc:mysql://"+host+":"+port+"/"+dbName+"";
+            case MY_SQL : return "jdbc:mysql://"+host+":"+port+"/"+dbName+"?autoReconnect=true";
             case ORACLE_SQL : return "jdbc:oracle:thin:@"+host+":"+port+":xe";
             case H2 : return "jdbc:h2:mem:"+dbName;
             case DERBY : return "jdbc:derby:"+host;

@@ -1,11 +1,16 @@
 package com.sdigitizers.utils.util;
 
+import com.google.gson.reflect.TypeToken;
+import com.sdigitizers.utils.fileh.JsonUtil;
+import com.sdigitizers.utils.model.address.State;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,9 +18,9 @@ import org.apache.logging.log4j.Logger;
  * This class contains various lists of resources needed often in the project development
  * @author Shriram Prajapat
  */
-public class ResourceList {
+public class DataService {
 
-    private static final Logger LOGGER = LogManager.getLogger(ResourceList.class);
+    private static final Logger LOGGER = LogManager.getLogger(DataService.class);
     //private static final String DEFAULT_FILE_PATH_PREFIX = "src/main/resources/listvalues/";
     private static final String DEFAULT_FILE_PATH_PREFIX = "listvalues/";
     /**
@@ -64,7 +69,7 @@ public class ResourceList {
      */
     public static List<String> readResourceValuesFromFile(String fileName){
         List<String> list = null;
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(ResourceList.class.getClassLoader().getResourceAsStream(fileName)))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(DataService.class.getClassLoader().getResourceAsStream(fileName)))) {
             list = new ArrayList<>();
             String s = null;
             while ((s = br.readLine()) != null) {
@@ -78,40 +83,68 @@ public class ResourceList {
         return list;
     }
 
+    public static String readInternalFile(String fileName){
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(DataService.class.getClassLoader().getResourceAsStream(fileName)))) {
+            String s = null;
+            while ((s = br.readLine()) != null) {
+                sb.append(s).append("\n");
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+            LOGGER.error("Error reading internal text file - ",e);
+        }
+        return sb.toString();
+    }
     
+    private static List<String> englishSalutations;
     /**
      * @return List of Salutations (eg. Mr., Mrs., Miss., etc.)
      */
-    public static List<String> getEnglishSalutationsList() {
-        return readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"englishTitles.txt");
+    public static List<String> getEnglishSalutations() {
+        if(null == englishSalutations){
+          englishSalutations = readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"englishTitles.txt");
+        }
+        return englishSalutations;
     }
 
+    
+    private static List<String> hindiSalutations;
     /**
      * @return List of Salutations (eg. Kumar, Kumari, Shri, etc.)
      */
-    public static List<String> getHindiSalutationsList() {
-        return readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"hindiTitles.txt");
+    public static List<String> getHindiSalutations() {
+        if(null == hindiSalutations){
+           hindiSalutations = readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"hindiTitles.txt");
+        }
+        return hindiSalutations;
     }
 
+    
+    private static List<String> nationalities;
     /**
      * @return List of all nationalities around the globe (eg. Indian, American, Australian, Chinese, etc.)
      */
-    public static List<String> getAllNationalities() {
-        return readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"nationalities.txt");
+    public static List<String> getNationalities() {
+        if(null == nationalities){
+           nationalities = readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"nationalities.txt");
+        }
+        return nationalities;
     }
 
+    private static Map<String, State> indianStates;
     /**
      * @return List of all Indian States (eg. Assam, Rajasthan, Bihar,.. etc.)
      */
-    public static List<String> getAllIndianStates() {
-        return readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"indianStates.txt");
-    }
-    
-    /**
-     * @return List of Job-Posting locations of Company/ (eg. Delhi, Mumbai, Jaipur, etc.)
-     */
-    public static List<String> getJobPostingLocations() {
-        return readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"jobLocations.txt");
+    public static Map<String, State> getIndianStates() {
+        if(null == indianStates){
+            List<State> sts = JsonUtil.GSON.fromJson(readInternalFile(DEFAULT_FILE_PATH_PREFIX+"indianStates.json"), new TypeToken<List<State>>(){}.getType());
+            indianStates = new HashMap<>();
+            for(State st : sts){
+                indianStates.put(st.getCode(), st);
+            }
+        }
+        return indianStates;
     }
     
     /**
@@ -270,6 +303,7 @@ public class ResourceList {
     }
 
     /**
+     * https://restcountries.eu/rest/v2/all
      * @return List of all countries around the globe
      */
     public static List<String> getAllCountriesList() {
