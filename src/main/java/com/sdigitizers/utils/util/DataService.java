@@ -1,16 +1,11 @@
 package com.sdigitizers.utils.util;
 
-import com.google.gson.reflect.TypeToken;
-import com.sdigitizers.utils.fileh.JsonUtil;
-import com.sdigitizers.utils.model.address.State;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -130,21 +125,6 @@ public class DataService {
            nationalities = readResourceValuesFromFile(DEFAULT_FILE_PATH_PREFIX+"nationalities.txt");
         }
         return nationalities;
-    }
-
-    private static Map<String, State> indianStates;
-    /**
-     * @return List of all Indian States (eg. Assam, Rajasthan, Bihar,.. etc.)
-     */
-    public static Map<String, State> getIndianStates() {
-        if(null == indianStates){
-            List<State> sts = JsonUtil.GSON.fromJson(readInternalFile(DEFAULT_FILE_PATH_PREFIX+"indianStates.json"), new TypeToken<List<State>>(){}.getType());
-            indianStates = new HashMap<>();
-            for(State st : sts){
-                indianStates.put(st.getCode(), st);
-            }
-        }
-        return indianStates;
     }
     
     /**

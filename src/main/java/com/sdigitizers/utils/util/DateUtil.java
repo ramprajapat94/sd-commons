@@ -60,7 +60,7 @@ public class DateUtil {
      * @param year Year
      * @return No. of days in the specified month
      */
-    public static int getNumberOfDays_Month(int month, int year) {
+    public static int getMonthLength(int month, int year) {
         switch (month) {
             case 1:
                 return 31;

@@ -137,6 +137,39 @@ public class TextUtil {
 		return builder.toString();
     }
     
+    public static String randomNumeric(int length) {
+		String ALPHA_NUMERIC_STRING = "0123456789";
+		StringBuilder builder = new StringBuilder();
+		while (length-- != 0) {
+			int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+		}
+		return builder.toString();
+    }
+    
+    public static String randomAlpha(int length) {
+		String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder builder = new StringBuilder();
+		while (length-- != 0) {
+			int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+			builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+		}
+		return builder.toString();
+    }
+    
+    public static String listToString(List l){
+        return l.toString().substring(1, l.toString().length()-1);
+    }
+    
+    public static List<String> stringToList(String s){
+        String arr[] = s.split(",");
+        List<String> l = new ArrayList<>();
+        for(String a : arr){
+            l.add(a.trim());
+        }
+        return l;
+    }
+    
     public static void printClassContents(String filePath) throws FileNotFoundException, IOException{ 
            FileReader reader = new FileReader(filePath);
            BufferedReader br = new BufferedReader(reader);

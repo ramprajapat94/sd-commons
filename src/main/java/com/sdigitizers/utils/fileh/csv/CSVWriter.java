@@ -3,6 +3,7 @@ package com.sdigitizers.utils.fileh.csv;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,6 +64,23 @@ public class CSVWriter implements AutoCloseable {
         }
     }
 
+    /**
+     * Write values in a line(row)<br>
+     *
+     * @param lines List of a list of values to be written in file at once
+     * @throws IOException
+     */
+    public void writeLines_(List<String[]> lines) throws IOException {
+       List<List<String>> data = new ArrayList<>();
+         for (String[] strings : lines) {
+             List<String> params = new ArrayList<>();
+             for (String string : strings) {
+                 params.add(string);
+             }
+             data.add(params);
+        }
+         writeLines(data);
+    }
     /**
      * Flush and close the fileWriter object
      *

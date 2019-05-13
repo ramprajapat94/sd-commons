@@ -67,7 +67,12 @@
     
     <dependencies>
        
-        
+<!--        <dependency>
+            <groupId>com.sdigitizers.util</groupId>
+            <artifactId>sd-models</artifactId>
+            <version>1.0.0</version>
+            <type>jar</type>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -154,5 +159,13 @@
             <version>1.7.5</version>
             <type>jar</type>
         </dependency>
+        
+        
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.8-dmr</version>
+        </dependency> 
     </dependencies>
 </project>

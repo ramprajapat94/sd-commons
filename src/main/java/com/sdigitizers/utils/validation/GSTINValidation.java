@@ -1,31 +1,30 @@
 
-package com.sdigitizers.utils.util;
+package com.sdigitizers.utils.validation;
 
 /**
  * from http://developer.gstsystem.co.in/apiportal/howToStart/download
  * https://gist.github.com/karthikeyan5/f7b28e66ac9617603622491950bda77a
  */
-import java.util.Scanner;
 
-public class GSTINValidator {
+public class GSTINValidation {
 	public static final String GSTINFORMAT_REGEX = "[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}";
 	public static final String GSTN_CODEPOINT_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	public static void main(String args[]) {
-		//Sample valid GSTIN - 09AAAUP8175A1ZG;
-		Scanner sc = new Scanner(System.in);		
-		System.out.println("Enter GSTIN Number");
-		String gstin = sc.next();
-		try {
-			if (isValidGSTIN(gstin))
-				System.out.println("Valid GSTIN!");
-			else
-				System.out.println("Invalid GSTIN");
-		} catch (Exception e) {
-                    System.err.println(e);
-		}
-
-	}
+//	public static void main(String args[]) {
+//		//Sample valid GSTIN - 09AAAUP8175A1ZG;
+//		Scanner sc = new Scanner(System.in);		
+//		System.out.println("Enter GSTIN Number");
+//		String gstin = sc.next();
+//		try {
+//			if (isValidGSTIN(gstin))
+//				System.out.println("Valid GSTIN!");
+//			else
+//				System.out.println("Invalid GSTIN");
+//		} catch (Exception e) {
+//                    System.err.println(e);
+//		}
+//
+//	}
 
 	/**
 	 * Method to check if a GSTIN is valid. Checks the GSTIN format and the

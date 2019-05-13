@@ -143,7 +143,7 @@ public class FileUtil {
     
         
     public static String readTextFile(File f) {
-        StringBuilder content = new StringBuilder();;
+        StringBuilder content = new StringBuilder();
         //String separator = System.getProperty("line.separator");
         String separator = System.lineSeparator();
         try {
@@ -153,17 +153,21 @@ public class FileUtil {
 //                return new String(chars);
 //            }
             try (FileReader reader = new FileReader(f)) {
-              BufferedReader bufferedReader = new BufferedReader(reader);
+            try(BufferedReader bufferedReader = new BufferedReader(reader)){
               String line;
               while ((line = bufferedReader.readLine()) != null) {
                   content.append(separator).append(line);
               }
               return content.toString();
-            }
+            }}
         } catch (IOException ex) {
             LOGGER.error("Error reading file - " + ex.getMessage());
         }
         return null;
+    }
+    
+    public static String readTextFile(String filePath){
+        return readTextFile(new File(filePath));
     }
 
 }
