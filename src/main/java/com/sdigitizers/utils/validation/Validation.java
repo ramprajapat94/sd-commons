@@ -1,7 +1,8 @@
 
 package com.sdigitizers.utils.validation;
 
-import com.sdigitizers.utils.util.Pair;
+import com.sdigitizers.utils.util.Response;
+
 
 /**
  *
@@ -10,54 +11,54 @@ import com.sdigitizers.utils.util.Pair;
 public class Validation {
     
     ///PHONE
-    public static Pair<Boolean, String> isPhone(String number){
+    public static Response isPhone(String number){
         return PhoneValidation.isValidNumber(number);
     }
     
-    public static Pair<Boolean, String> isPhone(String countryCode, String number){
+    public static Response isPhone(String countryCode, String number){
         return PhoneValidation.isValidNumber(countryCode, number);
     }
     
     
     ////EMAIL
-    public static Pair<Boolean, String> isEmailId(String email){
+    public static Response isEmailId(String email){
         return EmailValidation.isValidEmailId(email);
     }
     
     ///PASSWORD
-    public static Pair<Boolean, String> isPasswordLow(String pass){
+    public static Response isPasswordLow(String pass){
         return PasswordValidation.validateLow(pass);
     }
     
-    public static Pair<Boolean, String> isPasswordMedium(String pass){
+    public static Response isPasswordMedium(String pass){
         return PasswordValidation.validateMedium(pass);
     }
     
-    public static Pair<Boolean, String> isPasswordHigh(String pass){
+    public static Response isPasswordHigh(String pass){
         return PasswordValidation.validateHigh(pass);
     }
     
     
     ////TRANSPORT
-    public static Pair<Boolean, String> isDrivingLicenseNo(String dlNo){
+    public static Response isDrivingLicenseNo(String dlNo){
         return TransportValidation.isDrivingLicenseNo(dlNo);
     }
     
-    public static Pair<Boolean, String> isRCNo(String rcNo){
+    public static Response isRCNo(String rcNo){
         return TransportValidation.isRCNo(rcNo);
     }
     
     
     //// BUSINESS
-    public static Pair<Boolean, String> isBankAccNo(String accNo){
+    public static Response isBankAccNo(String accNo){
         return BusinessValidation.isValidAccountNumber(accNo);
     }
     
-    public static Pair<Boolean, String> isIFSC(String ifsc){
+    public static Response isIFSC(String ifsc){
         return BusinessValidation.isValidIFSC(ifsc);
     }
     
-    public static Pair<Boolean, String> isPAN(String pan){
+    public static Response isPAN(String pan){
         return BusinessValidation.isPAN(pan);
     }
 

@@ -1,7 +1,9 @@
 
 package com.sdigitizers.utils.validation;
 
-import com.sdigitizers.utils.util.Pair;
+import com.sdigitizers.utils.util.Response;
+
+
 
 /**
  *
@@ -14,20 +16,20 @@ public class PasswordValidation {
      * @param password
      * @return 
      */
-    public static Pair<Boolean, String> validateLow(String password) {
+    public static Response validateLow(String password) {
         if(null == password){
-            return new Pair<>(false, "Password cannot be null");
+            return new Response(false, "Password cannot be null");
         }
         if(password.isEmpty()){
-            return new Pair<>(false, "Password cannot be empty");
+            return new Response(false, "Password cannot be empty");
         }
         if (password.length() < 8) {
-            return new Pair<>(false, "Password must have length of atleast 8");
+            return new Response(false, "Password must have length of atleast 8");
         }
         if (password.length() > 16) {
-            return new Pair<>(false, "Password can have max length of 16");
+            return new Response(false, "Password can have max length of 16");
         }
-        return new Pair<>(true, "Valid Password");
+        return new Response(true, "Valid Password");
     }
     
     /**
@@ -35,18 +37,18 @@ public class PasswordValidation {
      * @param password
      * @return 
      */
-    public static Pair<Boolean, String> validateMedium(String password) {
+    public static Response validateMedium(String password) {
         if(null == password){
-            return new Pair<>(false, "Password cannot be null");
+            return new Response(false, "Password cannot be null");
         }
         if(password.isEmpty()){
-            return new Pair<>(false, "Password cannot be empty");
+            return new Response(false, "Password cannot be empty");
         }
         if (password.length() < 8) {
-            return new Pair<>(false, "Password must have length of atleast 8");
+            return new Response(false, "Password must have length of atleast 8");
         }
         if (password.length() > 16) {
-            return new Pair<>(false, "Password can have max length of 16");
+            return new Response(false, "Password can have max length of 16");
         }
         
         boolean alpha = false;
@@ -69,14 +71,14 @@ public class PasswordValidation {
             }
             
         if (!alpha) {
-            return new Pair<>(false, "Password must contain a letter");
+            return new Response(false, "Password must contain a letter");
         }
         
         if (!digit) {
-            return new Pair<>(false, "Password must contain a number");
+            return new Response(false, "Password must contain a number");
         }
             
-        return new Pair<>(true, "Valid Password");
+        return new Response(true, "Valid Password");
     }
 
     
@@ -85,18 +87,18 @@ public class PasswordValidation {
      * @param password
      * @return 
      */
-    public static Pair<Boolean, String> validateHigh(String password) {
+    public static Response validateHigh(String password) {
         if(null == password){
-            return new Pair<>(false, "Password cannot be null");
+            return new Response(false, "Password cannot be null");
         }
         if(password.isEmpty()){
-            return new Pair<>(false, "Password cannot be empty");
+            return new Response(false, "Password cannot be empty");
         }
         if (password.length() < 8) {
-            return new Pair<>(false, "Password must have length of atleast 8");
+            return new Response(false, "Password must have length of atleast 8");
         }
         if (password.length() > 16) {
-            return new Pair<>(false, "Password can have max length of 16");
+            return new Response(false, "Password can have max length of 16");
         }
         
         boolean alpha = false;
@@ -110,7 +112,7 @@ public class PasswordValidation {
             }
             
         if (!alpha) {
-            return new Pair<>(false, "Password must contain a letter");
+            return new Response(false, "Password must contain a letter");
         }
         
         boolean digit = false;
@@ -124,7 +126,7 @@ public class PasswordValidation {
             }
             
         if (!digit) {
-            return new Pair<>(false, "Password must contain a number");
+            return new Response(false, "Password must contain a number");
         }
          
         boolean upperCase = false;
@@ -138,7 +140,7 @@ public class PasswordValidation {
             }
             
         if (!upperCase) {
-            return new Pair<>(false, "Password must contain a Uppercase Letter");
+            return new Response(false, "Password must contain a Uppercase Letter");
         }   
         
         boolean lowerCase = false;
@@ -152,10 +154,10 @@ public class PasswordValidation {
             }
             
         if (!lowerCase) {
-            return new Pair<>(false, "Password must contain a Lowercase Letter");
+            return new Response(false, "Password must contain a Lowercase Letter");
         }   
         
-        return new Pair<>(true, "Valid Password");
+        return new Response(true, "Valid Password");
     }
     
 }

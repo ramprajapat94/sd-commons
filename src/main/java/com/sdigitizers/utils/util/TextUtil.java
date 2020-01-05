@@ -158,6 +158,7 @@ public class TextUtil {
     }
     
     public static String listToString(List l){
+        if(null == l)return "";
         return l.toString().substring(1, l.toString().length()-1);
     }
     

@@ -12,18 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Shriram Prajapat
  */
 public class PojoToPoto {
 
     public static void main(String[] args) {
         try {
-            if (args.length == 0) {
-                System.err.println("Please specify a directory path where POJOs are kept");
-                return;
-            }
-            File f = new File(args[0]);
+//            if (args.length == 0) {
+//                System.err.println("Please specify a directory path where POJOs are kept");
+//                return;
+//            }
+            File f = new File("/Users/shriramprajapat/Work/Projects/Client Projects/Chicken App/chickenapp-rest/src/main/java/com/sdigitizers/projects/chickenapp/model/finance");
             if (!f.exists()) {
                 System.err.println("Such directory doesn't exist");
                 return;
@@ -100,8 +99,12 @@ public class PojoToPoto {
                 if(innerType.contains("String"))innerType="string";
                 tsDataType = "Array<"+innerType+">";
             }
-            s[variableIndex] = s[variableIndex].substring(0, s[variableIndex].indexOf(";"));
-            sb.append("\n").append(" ").append(s[variableIndex]).append(": ").append(tsDataType).append(";");
+            try{
+                s[variableIndex] = s[variableIndex].substring(0, s[variableIndex].indexOf(";"));
+                sb.append("\n").append(" ").append(s[variableIndex]).append(": ").append(tsDataType).append(";");
+            }catch(Exception ex){
+                System.err.println(ex.toString());
+            }
         }
 
         sb.append("\n").append("}");

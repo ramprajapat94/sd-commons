@@ -1,7 +1,7 @@
 
 package com.sdigitizers.utils.validation;
 
-import com.sdigitizers.utils.util.Pair;
+import com.sdigitizers.utils.util.Response;
 
 /**
  * General GeneralValidation Methods
@@ -9,17 +9,17 @@ import com.sdigitizers.utils.util.Pair;
  */
 public class GeneralValidation {
     
-    public static Pair<Boolean, String> isValidPincode(String pincode){
+    public static Response isValidPincode(String pincode){
         if(null == pincode){
-            return new Pair<>(false, "Pincode cannot be null");
+            return new Response(false, "Pincode cannot be null");
         }
         if(!pincode.matches("[0-9]*")){
-            return new Pair<>(false, "Pincode must contain only numbers");
+            return new Response(false, "Pincode must contain only numbers");
         }
         if(pincode.length()!=6){
-            return new Pair<>(false, "Pincode must be of exactly 6 numbers");
+            return new Response(false, "Pincode must be of exactly 6 numbers");
         }
-        return new Pair<>(true, "SUCCESS");
+        return new Response(true, "SUCCESS");
     }
     
     /**
